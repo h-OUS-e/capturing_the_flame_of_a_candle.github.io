@@ -42,47 +42,10 @@
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</nav>
 
   
+
+
   
   
 <!-- START HERE -->
@@ -121,12 +84,12 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
         <source src="static/videos/029999_video.mp4"
                 type="video/mp4">
-      </video>
+      </video> -->
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> Exploring how a dynamic light source is captured in the Neural Radiance Fields with fast training and low memory footprints.
+        <span class="dnerf">project | </span> Exploring how a dynamic light sources is captured in Neural Radiance Fields and attempting to recreate that light source in a dynamic scene.
       </h2>
     </div>
   </div>
@@ -138,13 +101,13 @@
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/steve.mp4"
+          <video poster="" id="steve" autoplay controls muted loop playsinline *ngIf="src" width='120' height="100%">
+            <source src="static/videos/029999_video.mp4"
                     type="video/mp4">
           </video>
         </div>
         <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline  height="100%">
             <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/chair-tp.mp4"
                     type="video/mp4">
           </video>
@@ -199,39 +162,24 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
+
           </p>
           <p>
             We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
             photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+            dub <i>"nerfies"</i>.
           </p>
         </div>
       </div>
     </div>
     <!--/ Abstract. -->
 
+
     <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
+    <!-- <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Video</h2>
         <div class="publication-video">
@@ -239,7 +187,7 @@
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </div>
-    </div>
+    </div> -->
     <!--/ Paper video. -->
   </div>
 </section>
@@ -248,27 +196,41 @@
 <section class="section">
   <div class="container is-max-desktop">
 
+    <div class="columns is-centered has-text-centered"></div>
+      <!-- Related Work. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Related Work</h2>
+          <div class="content has-text-justified">
+            <p>            test</p>
+          </div>
+        </div>
+      </div>
+      <!--/ Related Work. -->
+    </div>
+  </div>
+  <div class="container is-max-desktop">
     <div class="columns is-centered">
 
-      <!-- Visual Effects. -->
+      <!-- NGP Example. -->
       <div class="column">
         <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
+          <h2 class="title is-4">NGP</h2>
           <p>
             Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
             would be impossible without nerfies since it would require going through a wall.
           </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/dollyzoom-stacked.mp4"
+          <video id="dollyzoom" controls muted playsinline width="120" height="120">
+            <source src="static/videos/029999_video.mp4"
                     type="video/mp4">
           </video>
         </div>
       </div>
-      <!--/ Visual Effects. -->
+      <!--/ NGP Example. -->
 
-      <!-- Matting. -->
+      <!-- Tenso RF Example. -->
       <div class="column">
-        <h2 class="title is-3">Matting</h2>
+        <h2 class="title is-4">TensoRF</h2>
         <div class="columns is-centered">
           <div class="column content">
             <p>
@@ -284,15 +246,25 @@
         </div>
       </div>
     </div>
-    <!--/ Matting. -->
+    <!--/ Tenso RF Example. -->
 
-    <!-- Animation. -->
-    <div class="columns is-centered">
+
+
+    <!-- METHOD. -->
+    <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
+        <h2 class="title is-3">Proposed Method</h2>
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+          <p>
+            <br><br>
+          </p>
 
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
+        <!-- NN Architecture. -->
+        <h3 class="title is-4">Neural Network Architecture</h3>
         <div class="content has-text-justified">
           <p>
             We can also animate the scene by interpolating the deformation latent codes of two input
@@ -300,7 +272,95 @@
             frame.
           </p>
         </div>
-        <div class="columns is-vcentered interpolation-panel">
+
+        <!-- Dataset. -->
+        <h3 class="title is-4">Dataset</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+
+        <div class="columns is-centered">
+
+          <!-- Static Example. -->
+          <div class="column">
+            <div class="content">
+              <h2 class="title is-5">Static Input Video</h2>
+              <p>
+                Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+                would be impossible without nerfies since it would require going through a wall.
+              </p>
+              <video id="dollyzoom" controls muted playsinline width="120" height="120">
+                <source src="static/videos/029999_video.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <!--/ Static Example. -->
+    
+          <!-- Dynamic Example. -->
+          <div class="column">
+            <h2 class="title is-5">Dynamic Input Video</h2>
+            <div class="columns is-centered">
+              <div class="column content">
+                <p>
+                  A Static video captured with an
+                </p>
+                <video id="matting-video" controls playsinline height="100%">
+                  <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+        <!--/ Dynamic Example -->
+
+
+
+        <div class="columns is-centered">
+
+          <!-- Static Example. -->
+          <div class="column">
+            <div class="content">
+              <h2 class="title is-5">COLMAP for Static Video</h2>
+              <p>
+                Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+                would be impossible without nerfies since it would require going through a wall.
+              </p>
+              <video id="dollyzoom" controls muted playsinline width="120" height="120">
+                <source src="static/videos/029999_video.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <!--/ Static Example. -->
+    
+          <!-- Dynamic Example. -->
+          <div class="column">
+            <h2 class="title is-5">COLMAP for Dynamic Video</h2>
+            <div class="columns is-centered">
+              <div class="column content">
+                <p>
+                  A Static video captured with an
+                </p>
+                <video id="matting-video" controls playsinline height="100%">
+                  <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"
+                          type="video/mp4">
+                </video>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+        <!--/ Dynamic Example -->
+
+
+        <!-- <div class="columns is-vcentered interpolation-panel">
           <div class="column is-3 has-text-centered">
             <img src="https://homes.cs.washington.edu/~kpar/nerfies/images/interpolate_start.jpg"
                  class="interpolation-image"
@@ -321,16 +381,15 @@
                  alt="Interpolation end reference image."/>
             <p class="is-bold">End Frame</p>
           </div>
-        </div>
+        </div> -->
         <br/>
         <!--/ Interpolating. -->
 
         <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
+        <h3 class="title is-4">Results</h3>
         <div class="content has-text-justified">
           <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
+            Discuss results, what failed, what worked, what can be improved.
           </p>
         </div>
         <div class="content has-text-centered">
@@ -348,7 +407,9 @@
 
       </div>
     </div>
-    <!--/ Animation. -->
+    <!--/ METHOD. -->
+
+
 
 
     <!-- Concurrent Work. -->
@@ -385,11 +446,10 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+    <pre><code>@article{Abou_Ras2022,
+  author    = {Abou Ras, Ous},
+  title     = {Capturing the Flame of a Candle},
+  year      = {2022},
 }</code></pre>
   </div>
 </section>
@@ -398,23 +458,25 @@
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
+      <!-- <a class="icon-link"
          href="https://homes.cs.washington.edu/~kpar/nerfies/videos/nerfies_paper.pdf">
         <i class="fas fa-file-pdf"></i>
       </a>
       <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
         <i class="fab fa-github"></i>
-      </a>
+      </a> -->
     </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
           <p>
+             <i>Thank you for the Nerfies authors for open sourcing the code for this website format. Source is linked below.</i> 
+             <br><br>
+          </p>
+          <p>            
             This website is licensed under a <a rel="license"
                                                 href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
+            Commons Attribution-ShareAlike 4.0 International License</a>.<br>
             This means you are free to borrow the <a
               href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
             we just ask that you link back to this page in the footer.
