@@ -58,14 +58,14 @@
           <h1 class="title is-1 publication-title">Capturing the Flame of a Candle</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-             <sup></sup>Ous Abou Ras</span>
+             <sup></sup>by Ous Abou Ras</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- Code Link. -->
+              <!-- Code Link. https://github.com/h-OUS-e/capturing_the_flame_of_a_candle-->
               <span class="link-block">
-                <a href="https://github.com/h-OUS-e/capturing_the_flame_of_a_candle"
+                <a href="" 
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -89,13 +89,13 @@
                 type="video/mp4">
       </video> -->
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">project | </span> Exploring how a dynamic light sources is captured in Neural Radiance Fields and attempting to recreate that light source in a dynamic scene.
+        <span class="dnerf">project | </span> Can we capture a moving flame in a dynamic scene using Neural Radiance Fields?
       </h2>
     </div>
   </div>
 </section>
 
-
+<!-- 
 <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
@@ -151,7 +151,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <section class="section">
@@ -162,15 +162,19 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-
+            This project explored how a changing light source is captured in current Neural Radiance Field methods
+            in an attempt to create a dynamic scene where the flow of a flame of a candle is captured from multiple points of views.
           </p>
           <p>
-
+            The challenge here is to use a video input from a single camera while calculating the camera poses using COLMAP, while keeping the
+            training time short (less than 10 mins) and the memory footprint low.
           </p>
           <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            dub <i>"nerfies"</i>.
+            Inspired by the short training time and low memory footprint of TensoRF and NGP, we explore their ability to capture
+            a dynamic scene of the flame of a candle, and then expand the TensoRF's representation to take into account time as an additional vector.
+            The results show the differences between raw NGP and TensoRF in capturing a simple and subtle dynamic scene such as that of a flame of a candle, and
+            compare it to a static scene. We show where these methods fail, and how simply adding a time vector towards TensoRF does
+            not solve the problem of capturing the flame of a candle.
           </p>
         </div>
       </div>
@@ -202,26 +206,122 @@
         <div class="column is-four-fifths">
           <h2 class="title is-3">Related Work</h2>
           <div class="content has-text-justified">
-            <p>            test</p>
+            <p> A lot of work has been published on dynamic scene representation using Neural Radiance Fields. <br><br>
+              One popular method of capturing dynamic scenes is presented in 
+              <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a>, where a canonical scene is first trained
+              to represent timestep 0, and a deformation scene is trained that learns the transformations from canonical space to the 
+              desired time frame. The results work well on animated objects without a background, but tend to perform poorly 
+              when the input is a video from the real world.               
+            </p>
+            <p>
+              <a href="https://banmo-www.github.io/">BANMo</a> tries to solve this by extracting a 3d model of moving object and deforming
+              that object, allowing us to recreate dynamic scenes of a moving cat. However, the method fails for something as a flame of a candle
+              where the object in question is a light source that can grow in size and even disappear as it gets blown away with the wind.
+            </p>
+            <p>
+              <a href="https://neural-3d-video.github.io/">Neural 3D Video Synthesis from Multi-view Video</a> uses multiple cameras
+              to capture a dynamic scene, where they successfully recapture the flame coming out of a blowing torch. However, the method
+              cannot recreate the scene with just one camera, and the flame appears noisier than other parts of the recreated scene.
+            </p>
+            <p>
+              To better understand the problem, we start by exploring simple Neural Radiance Field models that promise fast training
+              times and lower memory footprints, such as <a href="https://nvlabs.github.io/instant-ngp/">NGP</a> and 
+              <a href="https://apchenstu.github.io/TensoRF/">TensoRF</a>. We then try to extend TensoRF to include the time dimension in its code.
+            </p>
+
           </div>
         </div>
       </div>
       <!--/ Related Work. -->
     </div>
   </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered"></div>
+
+      <!-- Dataset. -->
+      <h3 class="title is-4">Dataset</h3>
+      <div class="content has-text-justified">
+        <p>
+          We test the model on two different scenes, a dynamic and static one, to see if and how the changing light source heavily effects COLMAP
+          or the model itself. Extracting images from the video at 4 frames per second, we use that dataset to train COLMAP on the camera poses.
+          <br>
+          COLMAP from source was used, but ultimately, "colmap2nerf.py" from NGP source code was used as it seemed that its finetuned 
+          parameters worked best for extracting the camera poses of both scenes. 2fps seemed to return inaccurate camera poses, while 4fps
+          gave COLMAP enough images to create more accurate results.
+        </p>
+      </div>
+    
+
+      <div class="columns is-centered">
+        <!-- Static Example. -->
+        <div class="column ">
+          <div class="content">
+            <h2 class="title is-5">Static | Unlit Candle</h2>
+            <p>
+              ACTUAL Video of Unlit Candle and its COLMAP camera poses.<br>
+              Total frames = 107 <br>
+              COLMAP took ~5 mins to run at 8 aabb scale on a 3080ti.
+              
+            </p>
+            <video id="dollyzoom" autoplay loop controls muted playsinline height="100%">
+              <source src="static/videos/farah_candle_static_4fps_And_COLMAP.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!--/ Static Example. -->
+  
+        <!-- Dynamic Example. -->
+        <div class="column">
+          <h2 class="title is-5">Dynamic | Lit Candle</h2>
+          <div class="columns is-centered">
+            <div class="column content">
+              <p>
+                ACTUAL Video of Lit Candle and its COLMAP camera poses.<br>
+                Total frames = 133 <br>
+                COLMAP took ~5 mins to run at 8 aabb scale on a 3080ti.
+              </p>
+              <video id="matting-video" autoplay loop controls muted playsinline height="100%">
+                <source src="static/videos/farah_candle_lit2_4fps_And_COLMAP.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <!--/ Dynamic Example -->
+
+
+      <br><br>
+      <!--/ TESTING NGP AND TENSORF -->
+      <h2 class="title is-4">Testing NGP and TensoRF on a candle scene</h2>
+      <div class="content has-text-justified">        
+        <p> Here, we show a scene and a few results of a non-lit candle, and a scene of a lit candle recreated by NGP and TensoRF. <br>
+            It is quickly apparent how the flickering flame and its dynamic light source effects the recreation of the scene,
+            where NGP has a hard time generating novel views with the lit scene, compared to the non-lit scene.
+        </p>
+        </div>
+    </div>
+  </div>
+  <br><br>
+  
   <div class="container is-max-desktop">
     <div class="columns is-centered">
 
       <!-- NGP Example. -->
       <div class="column">
         <div class="content">
-          <h2 class="title is-4">NGP</h2>
+          <h2 class="title is-5">NGP | Flythrough</h2>
           <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
+            Here is a fly through result of NGP trained on both scenes.
           </p>
-          <video id="dollyzoom" controls muted playsinline width="120" height="120">
-            <source src="static/videos/029999_video.mp4"
+          <video id="dollyzoom" autoplay loop controls muted playsinline height="100%">
+            <source src="static/videos/ngp_walkthrough_comparison.mp4"
                     type="video/mp4">
           </video>
         </div>
@@ -230,12 +330,84 @@
 
       <!-- Tenso RF Example. -->
       <div class="column">
-        <h2 class="title is-4">TensoRF</h2>
+        <h2 class="title is-5">TensoRF | Flythrough</h2>
         <div class="columns is-centered">
           <div class="column content">
             <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
+              The model does well on non-novel views it is trained on.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Tenso RF Example. -->
+
+    <div class="columns is-centered">
+
+      <!-- NGP Example. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-5">NGP | Non-Novel Views</h2>
+          <p>
+            The model does well on non-novel views it is trained on.
+          </p>
+          <video id="dollyzoom" controls muted playsinline width="120" height="120">
+            <source src="static/videos/farah_candle_static.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <!--/ NGP Example. -->
+
+      <!-- Tenso RF Example. -->
+      <div class="column">
+        <h2 class="title is-5">TensoRF | Non-Novel Views</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              Here is a fly through result of TensoRF trained on both scenes.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Tenso RF Example. -->
+
+    
+    <div class="columns is-centered">
+
+      <!-- NGP Example. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-5">NGP | Novel Views</h2>
+          <p>
+            But fails when viewing new views not trained on producing clouds of light.
+          </p>
+          <video id="dollyzoom" controls muted playsinline height="100%">
+            <source src="static/videos/farah_candle_static.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <!--/ NGP Example. -->
+
+      <!-- Tenso RF Example. -->
+      <div class="column">
+        <h2 class="title is-5">TensoRF | Novel Views</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              Here is a fly through result of TensoRF trained on both scenes.
             </p>
             <video id="matting-video" controls playsinline height="100%">
               <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"
@@ -249,7 +421,12 @@
     <!--/ Tenso RF Example. -->
 
 
+  </div>
+</section>
 
+
+<section>
+  <div class="container is-max-desktop">
     <!-- METHOD. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
@@ -264,100 +441,24 @@
           </p>
 
         <!-- NN Architecture. -->
-        <h3 class="title is-4">Neural Network Architecture</h3>
+        <h3 class="title is-4">Decomposing the field into tensors</h3>
         <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
+          <p>      
+            Instead of representing the field as a voxel grid, we borrow the methodology from TensoRF in decomposing the 3D field into the sum of the product of Matrices and Vectors. 
+            Instead of decomposing the 3D field into ONE sum of products, we decompose it into several sums of products to allow the Neural Network to capture different complexities
+            of the scene within the lower rank decomposition of the field. Then, we sum the sums of products to get our representation of the scene, which we then query an image from
+            compare it to the ground truth. <br>
+            Unlike TensoRF, we add one additional vector, that of time, to take into account the flame of the candle that is constantly changing with every frame.
           </p>
+          <img src="static/images/graphics_DecomposedField.png"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">An illustration of the tensorial decomposition of a dynamic scene.</p>
+
         </div>
 
-        <!-- Dataset. -->
-        <h3 class="title is-4">Dataset</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-
-        <div class="columns is-centered">
-
-          <!-- Static Example. -->
-          <div class="column">
-            <div class="content">
-              <h2 class="title is-5">Static Input Video</h2>
-              <p>
-                Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-                would be impossible without nerfies since it would require going through a wall.
-              </p>
-              <video id="dollyzoom" controls muted playsinline width="120" height="120">
-                <source src="static/videos/029999_video.mp4"
-                        type="video/mp4">
-              </video>
-            </div>
-          </div>
-          <!--/ Static Example. -->
-    
-          <!-- Dynamic Example. -->
-          <div class="column">
-            <h2 class="title is-5">Dynamic Input Video</h2>
-            <div class="columns is-centered">
-              <div class="column content">
-                <p>
-                  A Static video captured with an
-                </p>
-                <video id="matting-video" controls playsinline height="100%">
-                  <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"
-                          type="video/mp4">
-                </video>
-              </div>
-    
-            </div>
-          </div>
-        </div>
-        <!--/ Dynamic Example -->
-
-
-
-        <div class="columns is-centered">
-
-          <!-- Static Example. -->
-          <div class="column">
-            <div class="content">
-              <h2 class="title is-5">COLMAP for Static Video</h2>
-              <p>
-                Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-                would be impossible without nerfies since it would require going through a wall.
-              </p>
-              <video id="dollyzoom" controls muted playsinline width="120" height="120">
-                <source src="static/videos/029999_video.mp4"
-                        type="video/mp4">
-              </video>
-            </div>
-          </div>
-          <!--/ Static Example. -->
-    
-          <!-- Dynamic Example. -->
-          <div class="column">
-            <h2 class="title is-5">COLMAP for Dynamic Video</h2>
-            <div class="columns is-centered">
-              <div class="column content">
-                <p>
-                  A Static video captured with an
-                </p>
-                <video id="matting-video" controls playsinline height="100%">
-                  <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/matting.mp4"
-                          type="video/mp4">
-                </video>
-              </div>
-    
-            </div>
-          </div>
-        </div>
-        <!--/ Dynamic Example -->
+        
+      
 
 
         <!-- <div class="columns is-vcentered interpolation-panel">
