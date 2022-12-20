@@ -356,53 +356,57 @@
         <div class="content">
           <h2 class="title is-5">NGP | Non-Novel Views</h2>
           <p>
-            The NGP model does well on non-novel views of a Lit scene.
+            The NGP model does well on non-novel views of a Lit scene, reproducing the flame with the same glare.
           </p>
           <img src="static/images/NGP_nonNovelViews.jpg" >
         </div>
       </div>
       <!--/ NGP Example. -->
 
-      <!-- Tenso RF Example. -->
-      <div class="column">
-        <h2 class="title is-5">TensoRF | Non-Novel Views</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              TensoRF as well...
-            </p>
-            <img src="static/images/TensoRF_nonNovelViews.jpg" >
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!--/ Tenso RF Example. -->
-
-    
-    <div class="columns is-centered">
 
       <!-- NGP Example. NGP_NovelViews-->
       <div class="column">
         <div class="content">
           <h2 class="title is-5">NGP | Novel Views</h2>
           <p>
-            But fails when looking at new views of a Lit scene; producing clouds of light.
+            But fails when looking at new views of a Lit scene; producing irregular clouds of light.
           </p>
           <img src="static/images/NGP_NovelViews.jpg" >
         </div>
       </div>
       <!--/ NGP Example. -->
+    </div>
+      
+    
+    <div class="columns is-centered">
+
 
       <!-- Tenso RF Example. -->
       <div class="column">
-        <h2 class="title is-5">TensoRF | Novel Views</h2>
+        <h2 class="title is-5">TensoRF | Non-Novel Views Lit Scene</h2>
         <div class="columns is-centered">
           <div class="column content">
             <p>
-              TensoRF also just generates noisy images, but without the cloud seen in ngp.
+              With TensoRF, the flame makes it harder for the model to capture the scene.
             </p>
-            <img src="static/images/TensoRF_NovelViews.jpg" >
+            <img src="static/images/TensoRF_nonNovelViewsLit.jpg" >
+          </div>
+
+        </div>
+      </div>
+    
+    <!--/ Tenso RF Example. -->
+      
+
+      <!-- Tenso RF Example. -->
+      <div class="column">
+        <h2 class="title is-5">TensoRF | Non-Novel Views Unlit Scene</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              While a static unlit scene appears to be less noisy in the absence of a flame.
+            </p>
+            <img src="static/images/TensoRF_nonNovelViewsunLit.jpg" >
           </div>
 
         </div>
