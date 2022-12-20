@@ -58,8 +58,13 @@
           <h1 class="title is-1 publication-title">Capturing the Flame of a Candle</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-             <sup></sup>by Ous Abou Ras</span>
+             <sup></sup>by Ous Abou Ras</span> <br><br>
           </div>
+          <div class="columns is-centered">
+            <img src="static/images/Capture.jpg" width="20%"
+            class="interpolation-image"
+            alt="Interpolation end reference image."/>
+          </div> <br>
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -84,14 +89,11 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="static/videos/029999_video.mp4"
-                type="video/mp4">
-      </video> -->
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">project | </span> Can we capture a moving flame in a dynamic scene using Neural Radiance Fields?
       </h2>
     </div>
+    
   </div>
 </section>
 
@@ -354,7 +356,7 @@
         <div class="content">
           <h2 class="title is-5">NGP | Non-Novel Views</h2>
           <p>
-            The NGP model does well on non-novel views it is trained on.
+            The NGP model does well on non-novel views of a Lit scene.
           </p>
           <img src="static/images/NGP_nonNovelViews.jpg" >
         </div>
@@ -385,7 +387,7 @@
         <div class="content">
           <h2 class="title is-5">NGP | Novel Views</h2>
           <p>
-            But fails when viewing new views not trained on producing clouds of light.
+            But fails when looking at new views of a Lit scene; producing clouds of light.
           </p>
           <img src="static/images/NGP_NovelViews.jpg" >
         </div>
@@ -398,7 +400,7 @@
         <div class="columns is-centered">
           <div class="column content">
             <p>
-              TensoRF on the other hand just generates noisy images. 
+              TensoRF also just generates noisy images, but without the cloud seen in ngp.
             </p>
             <img src="static/images/TensoRF_NovelViews.jpg" >
           </div>
@@ -474,15 +476,50 @@
         <br/>
         <!--/ Interpolating. -->
 
-        <!-- Re-rendering. -->
-        <!-- <h3 class="title is-4">Results</h3>
+        <!-- RESULTS. -->
+        <h3 class="title is-4">Results</h3>
         <div class="content has-text-justified">
           <p>
-            Discuss results, what failed, what worked, what can be improved.
+            For this project, we first tried to add time as an input alongside position and direction. We then added
+            time as a vector within the multiplication of decomposed parts of the scene as seen in the figure above.
+            While the results yielded were not successful in capturing the flame of the candle from different view
+            points at different timesteps, <a href="https://arxiv.org/abs/2212.02375"> D-TensoRF</a> was recently published
+            that shows another way of adding time into the tensorial decomposition, which required a regularization technique
+            to be implemented as well.
+
+            For our results,querying the scene for different times yielded the same result which meant that the Neural Radiance
+            Field learned a canonical representation for all time steps. Thus, a good next step might be exploring how we could
+            implement the ideas from D-NeRF to have a canonical representation for just the first timestep while using the tensorial 
+            decomposition technique to lower the memory footprint and speed the fitting process. 
+
+            Another exciting challenge to solve and think more carefully about is how to treat a changing light source 
+            in a Neural Radiance Field. The light source here that flickers changes the colors of its surrounding, and 
+            produces camera glares that is captured as a solid with depth using current Radiance Field techniques. How could
+            such phenomenon be accounted for?
+          </p>
+
+          <img src="static/images/same_timeframes.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+          <p>Testing the proposed method above, yielding the same scene for different timesteps, which doesnt
+            capture the dynamic movement of the flame of the candle.
+          </p>
+
+          <img src="static/images/model_lit.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+          <p>Lit scene captured by the method for a single timeframe produced several artifacts in novel views.
+          </p>
+
+          <img src="static/images/model_unlit.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+          <p>The unlit scene had less artifacts due to the abscenes of a changing light source.
           </p>
         </div>
+
         <div class="content has-text-centered">
-          <video id="replay-video"
+          <!-- <video id="replay-video"
                  controls
                  muted
                  preload
@@ -490,9 +527,9 @@
                  width="75%">
             <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/replay.mp4"
                     type="video/mp4">
-          </video>
-        </div> -->
-        <!--/ Re-rendering. -->
+          </video> -->
+        </div>
+        <!--/ RESULTS. -->
 
       </div>
     </div>
